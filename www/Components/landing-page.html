@@ -1,0 +1,551 @@
+
+
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="Polymer Starter Kit" />
+  <title>Dashboards</title>
+  <!-- Place favicon.ico in the `app/` directory -->
+  <!-- Chrome for Android theme color -->
+  <meta name="theme-color" content="#2E3AA1">
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <!-- Tile color for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="PSK">
+  <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Polymer Starter Kit">
+  <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
+    
+ 
+  <!-- Tile icon for Win8 (144x144) -->
+  <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="../styles/main.css">
+  <!-- endbuild-->
+
+  <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- endbuild -->
+
+  <!-- will be replaced with elements/elements.vulcanized.html -->
+  <link rel="import" href="../elements/elements.html">
+  <!-- endreplace-->
+   <link rel="import" href="../bower_components/paper-card/paper-card.html">
+    <link rel="import" href="../bower_components/paper-button/paper-button.html">
+     <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+     <link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+     <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+    <!-- For Tabs -->
+     <link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
+    <link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+    <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+     <link rel="import" href="../bower_components/paper-button/paper-button.html">
+    <link rel="stylesheet" href="../styles/animate.css">
+
+    <!-- For High Charts -->
+    <script src="../scripts/jquery.min.js"></script>
+    <script src="../scripts/highcharts.js"></script>
+        
+    
+  <!-- For shared styles, shared-styles.html import in elements.html -->
+  <style is="custom-style" include="../styles/shared-styles">
+      
+      paper-card
+      {
+          --paper-card-header-color:white;
+      }
+      .card-content
+      {
+          color:white;
+      }
+      .card-actions
+      {
+           color:white;
+      }
+      paper-tab
+      {
+          background-color:#3F51B5;
+          color:white;
+      }
+     
+    
+    </style>
+
+</head>
+
+<body unresolved class="fullbleed layout vertical">
+  <span id="browser-sync-binding"></span>
+  <template is="dom-bind" id="app">
+
+    <paper-drawer-panel id="paperDrawerPanel" >
+      <!-- Drawer Scroll Header Panel -->
+      <paper-scroll-header-panel drawer fixed>
+
+        <!-- Drawer Toolbar -->
+        <paper-toolbar id="drawerToolbar">
+          <span class="paper-font-title">Menu</span>
+        </paper-toolbar>
+
+        <!-- Drawer Content -->
+        <paper-menu class="list" attr-for-selected="data-route" selected="[[route]]">
+          <a data-route="home" href="{{baseUrl}}">
+            <iron-icon icon="home"></iron-icon>
+            <span>Home</span>
+          </a>
+            
+
+          <a data-route="dashboard">
+            <iron-icon icon="info"></iron-icon>
+            <span>Dashboard</span>
+            </a>
+            
+             <a data-route="bsnl" href="{{baseUrl}}bsnl">                
+                <span><ul style="margin-left:50px">  
+                        <li>BSNL</li>                        
+                      </ul>
+                </span>
+            </a>
+            
+             <a data-route="trw" href="{{baseUrl}}trw">                
+                <span><ul style="margin-left:50px;">  
+                        <li>TRW</li>                        
+                      </ul>
+                </span>
+            </a>
+            
+            
+            
+            
+            
+            <!--
+
+          <a data-route="contact" href="{{baseUrl}}contact">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Contact</span>
+          </a>
+            
+            <a data-route="charts" href="{{baseUrl}}charts">
+            <iron-icon icon="book"></iron-icon>
+            <span>Chart</span>
+          </a>
+                -->
+    
+        </paper-menu>
+      </paper-scroll-header-panel>
+        
+        
+       
+      <!-- Main Area -->
+      <paper-scroll-header-panel main id="headerPanelMain" condenses keep-condensed-header>
+
+        <!-- Main Toolbar -->
+        <paper-toolbar id="mainToolbar" class="tall">
+          <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
+          <span class="flex"></span>
+
+          <!-- Toolbar icons -->
+          <paper-icon-button id="paperToggle" icon="refresh" paper-drawer-toggle></paper-icon-button>
+          <paper-icon-button icon="search"></paper-icon-button>
+
+          <!-- Application name -->
+          <div class="middle middle-container center horizontal layout">
+            <div class="app-name">Welcome to Dashboard </div>
+          </div>
+
+          <!-- Application sub title -->
+          <div class="bottom bottom-container center horizontal layout">
+            <div class="bottom-title paper-font-subhead">Text to display</div>
+          </div>
+
+        </paper-toolbar>
+
+        <!-- Main Content -->
+        <div class="content">
+          <iron-pages attr-for-selected="data-route" selected="{{route}}">
+
+            <section data-route="home">
+                
+              <paper-material elevation="1">
+                  
+                  <paper-card heading="Card 1" style="background-color:#3cba54;width:100%">
+                      <div class="card-content">Content Goes Here</div>
+                      <div class="card-actions">
+                       <paper-button><iron-icon icon="check"></iron-icon>&nbsp;Button</paper-button>
+                      </div>
+                    </paper-card>
+                   <br>
+                  <br>
+                   <paper-card heading="Card 2" style="background-color:#f4c20d;width:100%">
+                      <div class="card-content" >Content Goes Here</div>
+                      <div class="card-actions">
+                       <paper-button>YES</paper-button>
+                          <paper-button>NO</paper-button>
+                      </div>
+                    </paper-card>
+                  
+                   <br>
+                  <br>
+                   <paper-card heading="Card 3" style="width:100%//" image="../images/landscape.jpg">
+                      <!-- <div class="card-content">Content Goes Here</div>
+                      <div class="card-actions">
+                       <paper-button>YES</paper-button>
+                          <paper-button>NO</paper-button>
+                      </div>  -->
+                       
+                    </paper-card>
+                  
+                  
+                  
+                  <br>
+                  <br>
+                   <paper-card heading="Card 3" style="background-color:#f44336;width:100%">
+                     
+
+                      <div class="card-content" >Content Goes Here</div>
+                      <div class="card-actions">
+                       <paper-icon-button icon="book" title="heart"></paper-icon-button>
+                          <paper-icon-button  icon="reply" title="reply"></paper-icon-button>
+                      </div>
+                    </paper-card>
+                  
+               
+                
+                </paper-material>
+                  
+                  
+                  
+             
+                
+
+            </section>
+
+            <section data-route="users">
+              <paper-material elevation="1">
+                <h2 class="page-title">Users</h2>
+                <p>This is the users section</p>
+                <p> Content Goes Here</p>
+              </paper-material>
+            </section>
+
+            <section data-route="user-info">
+              <paper-material elevation="1">
+                <h2 class="page-title">User: {{params.name}}</h2>
+                <div>This is {{params.name}}'s section</div>
+              </paper-material>
+            </section>
+
+            <section data-route="bsnl">
+                <paper-tabs selected="{{selected}}">
+                          <paper-tab>Line</paper-tab>
+                          <paper-tab>Pie</paper-tab>
+                          <paper-tab>Bar</paper-tab>
+                        </paper-tabs>
+
+                        <iron-pages selected="{{selected}}" id="bsnlTabs">
+                             
+                            <div>
+                                 <paper-button raised id="lineChartNext" onclick="lineChartNext()"> NEXT </paper-button>
+                              
+                                <paper-material elevation="2" id="lineChart"></paper-material>
+                               
+                                  <script language="JavaScript">
+$(document).ready(function() {
+   var title = {
+      text: 'Average Temperatures of Cities'   
+   };
+   var subtitle = {
+      text: 'Source: worldClimate.com'
+   };
+   var xAxis = {
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+   };
+   var yAxis = {
+      title: {
+         text: 'Temperature (\xB0C)'
+      },
+      plotLines: [{
+         value: 0,
+         width: 1,
+         color: '#808080'
+      }]
+   };   
+
+   var tooltip = {
+      valueSuffix: '\xB0C'
+   }
+
+   var legend = {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle',
+      borderWidth: 0
+   };
+
+   var series =  [
+      {
+         name: 'Tokyo',
+         data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2,
+            26.5, 23.3, 18.3, 13.9, 9.6]
+      }, 
+      {
+         name: 'New York',
+         data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8,
+            24.1, 20.1, 14.1, 8.6, 2.5]
+      },
+      {
+         name: 'London',
+         data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 
+            16.6, 14.2, 10.3, 6.6, 4.8]
+      }
+   ];
+
+   var json = {};
+
+   json.title = title;
+   json.subtitle = subtitle;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;
+   json.tooltip = tooltip;
+   json.legend = legend;
+   json.series = series;
+
+   $('#lineChart').highcharts(json);
+});
+</script>    
+                            
+                            
+    </div>
+                            
+                          <div>
+                            
+                             <paper-material elevation="2" id="pieChart"></paper-material>
+                            
+                            <script language="JavaScript">
+$(document).ready(function() {  
+   var chart = {
+       plotBackgroundColor: null,
+       plotBorderWidth: null,
+       plotShadow: false
+   };
+   var title = {
+      text: 'Browser market shares at a specific website, 2014'   
+   };      
+   var tooltip = {
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+   };
+   var plotOptions = {
+      pie: {
+         allowPointSelect: true,
+         cursor: 'pointer',
+         dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
+            style: {
+               color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            }
+         }
+      }
+   };
+   var series= [{
+      type: 'pie',
+      name: 'Browser share',
+      data: [
+         ['Firefox',   45.0],
+         ['IE',       26.8],
+         {
+            name: 'Chrome',
+            y: 12.8,
+            sliced: true,
+            selected: true
+         },
+         ['Safari',    8.5],
+         ['Opera',     6.2],
+         ['Others',   0.7]
+      ]
+   }];     
+      
+   var json = {};   
+   json.chart = chart; 
+   json.title = title;     
+   json.tooltip = tooltip;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   $('#pieChart').highcharts(json);  
+});
+</script>
+                            
+                            </div>
+                            
+                          <div>
+                            
+                             <paper-material elevation="2" id="barChart"></paper-material>
+                              
+                              
+                          <script language="JavaScript">
+$(document).ready(function() {  
+   var chart = {
+      type: 'bar'
+   };
+   var title = {
+      text: 'Historic World Population by Region'   
+   };
+   var subtitle = {
+      text: 'Source: Wikipedia.org'  
+   };
+   var xAxis = {
+      categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+      title: {
+         text: null
+      }
+   };
+   var yAxis = {
+      min: 0,
+      title: {
+         text: 'Population (millions)',
+         align: 'high'
+      },
+      labels: {
+         overflow: 'justify'
+      }
+   };
+   var tooltip = {
+      valueSuffix: ' millions'
+   };
+   var plotOptions = {
+      bar: {
+         dataLabels: {
+            enabled: true
+         }
+      }
+   };
+   var legend = {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'top',
+      x: -40,
+      y: 100,
+      floating: true,
+      borderWidth: 1,
+      backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+      shadow: true
+   };
+   var credits = {
+      enabled: false
+   };
+   
+   var series= [{
+         name: 'Year 1800',
+            data: [107, 31, 635, 203, 2]
+        }, {
+            name: 'Year 1900',
+            data: [133, 156, 947, 408, 6]
+        }, {
+            name: 'Year 2008',
+            data: [973, 914, 4054, 732, 34]      
+	    }
+   ];     
+      
+   var json = {};   
+   json.chart = chart; 
+   json.title = title;   
+   json.subtitle = subtitle; 
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   json.legend = legend;
+   json.credits = credits;
+   $('#barChart').highcharts(json);
+  
+});
+</script>    
+                              
+                              
+                              
+                          </div>
+                        </iron-pages>
+                        
+                 </section>
+              
+            <section data-route="trw">
+               
+                <paper-tabs selected="{{selected}}">
+                          <paper-tab>Line</paper-tab>
+                          <paper-tab>Pie</paper-tab>
+                          <paper-tab>Bar</paper-tab>
+                        </paper-tabs>
+
+                        <iron-pages selected="{{selected}}">
+                            <div>Page 1</div>
+                            <div>Page 2</div>
+                            <div>Page 3</div>
+                </iron-pages>
+
+  
+            </section>
+
+          </iron-pages>
+        </div>
+      </paper-scroll-header-panel>
+    </paper-drawer-panel>
+
+    <paper-toast id="toast">
+      <span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toast.hide()">Ok</span>
+    </paper-toast>
+
+    <!-- Uncomment next block to enable Service Worker support (1/2) -->
+    <!--
+    <paper-toast id="caching-complete"
+                 duration="6000"
+                 text="Caching complete! This app will work offline.">
+    </paper-toast>
+
+    <platinum-sw-register auto-register
+                          clients-claim
+                          skip-waiting
+                          on-service-worker-installed="displayInstalledToast">
+      <platinum-sw-cache default-cache-strategy="fastest"
+                         cache-config-file="cache-config.json">
+      </platinum-sw-cache>
+    </platinum-sw-register>
+    -->
+
+  </template>
+
+  <!-- build:js scripts/app.js -->
+  <script src="../scripts/app.js"></script>
+  <!-- endbuild-->
+   <script>
+    function lineChartNext()
+       {
+          // alert("Clciked");
+           $('#lineChart').addClass('animated slideOutLeft');
+          var tabs = document.getElementById("bsnlTabs");
+           tabs.selected=1;
+       }
+       
+    function lineChartPrev()
+       {
+          // alert("Clciked");
+           $('#lineChart').addClass('animated slideInLeft');
+       }
+    
+    </script>
+
+</body>
+
+</html>
